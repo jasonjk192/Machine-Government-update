@@ -1,0 +1,28 @@
+civic_machine_caretaker = {
+	potential = { authority = { value = auth_machine_intelligence } }
+	possible = {
+		civics = {
+			NOR = {
+				value = civic_machine_terminator
+				value = civic_machine_assimilator
+				value = civic_machine_servitor
+			}
+		}
+	}
+	modification = no
+	random_weight = {
+		base = 1
+		modifier = {
+			factor = 0
+			NOT = { host_has_dlc = "Synthetic Dawn Story Pack" }
+		}
+		modifier = {
+			factor = 0
+			has_global_flag = game_started
+		}
+	}
+	description = civic_tooltip_machine_caretaker_effects
+	has_secondary_species = {	# see game_start.11
+		title = civic_machine_caretaker_secondary_species
+	}
+}

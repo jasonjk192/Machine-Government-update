@@ -1,0 +1,323 @@
+#####################################################################################
+# Note: MIght need to overwrite vanilla files if we want first contact for caretakers
+#####################################################################################
+
+namespace = first_contact_caretakers
+
+# First contact: default/hive meet machines
+
+first_contact_event = {
+	id = first_contact_caretakers.1
+	title = first_contact.104.name
+	desc = {
+		trigger = { NOT = { exists = event_target:secondary_species } }
+		text = first_contact.104.desc.terminator_or_default
+	}
+	desc = {
+		trigger = {
+			exists = event_target:secondary_species
+			contact_country = {
+				has_valid_civic = civic_machine_caretaker
+			}
+		}
+		text = first_contact.104.desc.servitor
+	}
+	picture = GFX_evt_robot_encounter
+	show_sound = event_robot_encounter
+
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+		contact_country = {
+			random_owned_species = {
+				limit = {
+					OR = {
+						has_citizenship_type = {
+							type = citizenship_organic_trophy
+							country = prev
+						}
+						has_trait = trait_cybernetic
+					}
+				}
+				save_event_target_as = secondary_species
+			}
+		}
+	}
+
+	after = {
+		set_site_progress_locked = no
+		owner = { set_country_flag = met_machine_empire }
+		finish_first_contact_effect = yes
+		first_contact_inform_intel = yes
+	}
+
+	option = {
+		name = first_contact.104.A
+		trigger = {
+			owner = {
+				is_gestalt = no
+				is_homicidal = no
+				NOT = { has_country_flag = met_machine_empire }
+			}
+		}
+		allow = {
+			owner = {
+				is_spiritualist = no
+			}
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = @tier3researchreward
+				min = @tier3researchmin
+				max = @tier3researchmax
+			}
+		}
+	}
+	option = {
+		name = {
+			text = first_contact.104.B1
+			trigger = {
+				owner = { is_spiritualist = yes }
+			}
+		}
+		name = {
+			text = first_contact.104.B2
+			trigger = {
+				owner = { has_valid_civic = civic_fanatic_purifiers }
+			}
+		}
+		name = {
+			text = first_contact.104.B3
+			trigger = {
+				owner = { has_valid_civic = civic_hive_devouring_swarm }
+			}
+		}
+		trigger = {
+			owner = {
+				is_gestalt = no
+				OR = {
+					is_homicidal = yes
+					is_spiritualist = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = ON_SCREEN
+		trigger = {
+			owner = {
+				OR = {
+					is_gestalt = yes
+					has_country_flag = met_machine_empire
+				}
+			}
+		}
+	}
+}
+
+#Machines have just discovered the non-machine
+
+first_contact_event = {
+	id = first_contact_caretakers.2
+	title = first_contact.390.name
+	desc = {
+		trigger = {
+			contact_country = {
+				has_policy_flag = first_contact_proactive
+			}
+		}
+		text = first_contact.390.desc.proactive
+	}
+	desc = {
+		trigger = {
+			contact_country = {
+				NOT = { has_policy_flag = first_contact_proactive }
+			}
+		}
+		text = first_contact.390.desc.cautious
+	}
+	picture = GFX_evt_mysterious_signal
+
+	inline_script = first_contact_event_sounds
+
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+		if = {
+			limit = {
+				contact_country = {
+					is_hive_empire = yes
+				}
+			}
+			owner = {
+				set_country_flag = machine_encountered_hive
+			}
+		}
+		else = {
+			owner = {
+				set_country_flag = machine_encountered_default
+			}
+		}
+		set_first_contact_flag = seen_aliens
+	}
+
+	after = {
+		set_site_progress_locked = no
+	}
+
+	option = {
+		name = {
+			text = INTERESTING
+			trigger = { owner = { NOT = { has_valid_civic = civic_machine_caretaker } } }
+		}
+		name = {
+			text = first_contact.390.A.servitor
+			trigger = { owner = { has_valid_civic = civic_machine_caretaker } }
+		}
+
+		if = {
+			limit = { contact_country = { has_policy_flag = first_contact_proactive } }
+			if = {
+				limit = { contact_country = { is_hive_empire = yes } }
+				set_first_contact_stage = machine_meets_hive_end_stage_proactive
+			}
+			else = {
+				set_first_contact_stage = machine_meets_default_end_stage_proactive
+			}
+		}
+		else_if = {
+			limit = { contact_country = { is_hive_empire = yes } }
+			set_first_contact_stage = machine_meets_hive_end_stage_cautious
+		}
+		else = {
+			set_first_contact_stage = machine_meets_default_end_stage_cautious
+		}
+	}
+}
+
+# machine->hive
+first_contact_event = {
+	id = first_contact_caretakers.3
+	title = first_contact.395.name
+	desc = {
+		trigger = { owner = { NOT = { has_valid_civic = civic_machine_caretaker } } }
+		text = first_contact.395.desc.standard
+	}
+	desc = {
+		trigger = { owner = { has_valid_civic = civic_machine_caretaker } }
+		text = first_contact.395.desc.servitor
+	}
+	picture = GFX_evt_mysterious_signal
+	show_sound = event_mysterious_signal
+
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+	}
+
+	after = {
+		set_site_progress_locked = no
+	}
+
+	option = {
+		name = {
+			text = first_contact.395.A
+			trigger = { owner = { NOT = { has_valid_civic = civic_machine_caretaker } } }
+		}
+		name = {
+			trigger = { owner = { has_valid_civic = civic_machine_caretaker } }
+			text = first_contact.395.A.servitor
+		}
+
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier3researchreward
+				min = @tier3researchmin
+				max = @tier3researchmax
+			}
+		}
+
+		finish_first_contact_effect = yes
+		first_contact_inform_intel = yes
+	}
+}
+
+# machine->default
+first_contact_event = {
+	id = first_contact_caretakers.4
+	title = first_contact.397.name
+	desc = {
+		trigger = { owner = { NOT = { has_valid_civic = civic_machine_caretaker } } }
+		text = first_contact.397.desc.standard
+	}
+	desc = {
+		trigger = {
+			owner = {
+				has_valid_civic = civic_machine_caretaker
+				exists = event_target:secondary_species
+			}
+		}
+		text = first_contact.397.desc.servitor
+	}
+	picture = GFX_evt_synth_organic_relations
+	show_sound = event_hand_shake
+
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+		owner = {
+			if = {
+				limit = { has_valid_civic = civic_machine_caretaker }
+				random_owned_species = {
+					limit = {
+						OR = {
+							has_citizenship_type = {
+								type = citizenship_organic_trophy
+								country = root.owner
+							}
+							has_trait = trait_cybernetic
+						}
+					}
+					save_event_target_as = secondary_species
+				}
+			}
+		}
+	}
+
+	after = {
+		set_site_progress_locked = no
+	}
+
+	option = {
+		name = {
+			text = first_contact.397.A
+			trigger = { owner = { NOT= { has_valid_civic = civic_machine_caretaker } } }
+		}
+		name = {
+			trigger = { owner = { has_valid_civic = civic_machine_caretaker } }
+			text = first_contact.397.A.servitor
+		}
+
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier3unityreward
+				min = @tier3unitymin
+				max = @tier3unitymax
+			}
+		}
+
+		finish_first_contact_effect = yes
+		first_contact_inform_intel = yes
+	}
+}

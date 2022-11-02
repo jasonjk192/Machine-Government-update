@@ -1,0 +1,406 @@
+#
+# BALANCE
+# can change the time and cost of all common buildings with these variables below
+
+@b0time = 120
+@b0cost = 30
+@b0effect = 1
+@b0upkeep = 0.5
+
+@b1time = 210
+@b1cost = 60
+@b1effect = 2
+@b1upkeep = 1
+
+@b2time = 180
+@b2cost = 90
+@b2effect = 3
+@b2upkeep = 1.5
+
+@b3time = 180
+@b3cost = 120
+@b3effect = 4
+@b3upkeep = 2
+
+@b4time = 180
+@b4cost = 150
+@b4effect = 5
+@b4upkeep = 2.5
+
+@b5time = 180
+@b5cost = 180
+@b5effect = 8
+@b5upkeep = 3
+
+@science1 = 1
+@science2 = 2
+@science3 = 3
+@science4 = 4
+@science5 = 6
+
+@b4_jobs = 8
+@b5_jobs = 12
+
+# These are modified caretaker specific buildings
+# problem: non-caretaker will only have access to vanilla agri buildings
+# problem: Vanilla agri buildings will also show up along with these for caretakers
+
+building_hab_agri_bay = {
+	icon = building_food_processing_center
+	base_buildtime = 360
+	resources = {
+		category = planet_buildings
+		cost = { minerals = 200 }
+		upkeep = { energy = 2 }
+	}
+	
+	potential = {
+		OR = {
+			exists = owner
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+			owner_is_caretaker = yes
+		}
+		planet = { is_planet_class = pc_habitat }	
+	}
+	
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	planet_modifier = {
+		job_agri_drone_add = 4
+	}
+}
+
+building_hydroponics_farm_1 = {
+	# tags = { hydroponics_farm }
+	icon = building_hydroponics_farm
+	base_buildtime = @b1time
+	resources = {
+		category = planet_buildings
+		cost = { minerals = @b1cost }
+		upkeep = { energy = @b1upkeep }
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_valid_civic = civic_agrarian_idyll }
+			}
+			unity = 1
+		}
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_tradition = tr_adaptability_finish }	
+			}
+			minerals = 1
+		}
+	}
+	planet_modifier = {
+		job_agri_drone_add = @b1_jobs
+	}
+	
+	upgrades = { building_hydroponics_farm_2 }	
+	prerequisites = { "tech_eco_simulation" }
+	
+	show_tech_unlock_if = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			is_caretaker = yes
+		}
+	}
+
+	potential = {
+		OR = {
+			exists = owner
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+			owner_is_caretaker = yes
+		}
+		planet = { NOT = { is_planet_class = pc_habitat } }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		owner = { has_authority = auth_machine_intelligence }
+		owner_is_caretaker = no
+	}
+	
+	# Betharian Stones and Alien Pets not present
+	# allow = {
+	# 	owner = { is_ai = yes }
+	# 	NOR = {
+	# 		has_resource = {
+	# 			type = sr_betharian
+	# 			amount > 0
+	# 		}	
+	# 		has_resource = {
+	# 			type = sr_alien_pets
+	# 			amount > 0
+	# 		}				
+	# 	}
+	# }
+
+	ai_weight = {
+		factor = 1
+	}
+}
+
+building_hydroponics_farm_2 = {
+	# tags = { hydroponics_farm }
+	icon = building_hydroponics_farm
+	base_buildtime = @b2time
+	can_build = no
+	
+	resources = {
+		category = planet_buildings
+		cost = { minerals = @b2cost }
+		upkeep = { energy = @b2upkeep }
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_valid_civic = civic_agrarian_idyll }
+			}
+			unity = 1
+		}
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_tradition = tr_adaptability_finish }	
+			}
+			minerals = 1
+		}
+	}
+
+	potential = {
+		OR = {
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+			owner_is_caretaker = yes
+		}
+		planet = { NOT = { is_planet_class = pc_habitat } }
+	}	
+
+	destroy_trigger = {
+		exists = owner
+		owner = { has_authority = auth_machine_intelligence }
+		owner_is_caretaker = no
+	}
+
+	planet_modifier = {
+		job_agri_drone_add = @b2_jobs
+	}
+	
+	show_tech_unlock_if = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			is_caretaker = yes
+		}
+	}
+	
+	allow = {
+		has_upgraded_capital = yes
+	}
+	
+	upgrades = {
+		building_hydroponics_farm_3
+	}	
+	
+	prerequisites = {
+		"tech_hydroponics_caretakers"
+	}
+}
+
+building_hydroponics_farm_3 = {
+	# tags = { hydroponics_farm }
+	icon = building_hydroponics_farm
+	base_buildtime = @b3time
+	can_build = no
+	
+	resources = {
+		category = planet_buildings
+		cost = { minerals = @b3cost }
+		upkeep = { energy = @b3upkeep }
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_valid_civic = civic_agrarian_idyll }
+			}
+			unity = 1
+		}
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_tradition = tr_adaptability_finish }	
+			}
+			minerals = 1
+		}
+	}
+	
+	planet_modifier = {
+		job_agri_drone_add = @b3_jobs
+	}
+
+	show_tech_unlock_if = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			is_caretaker = yes
+		}
+	}
+
+	potential = {
+		OR = {
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+			owner_is_caretaker = yes
+		}
+		planet = { NOT = { is_planet_class = pc_habitat } }
+	}	
+
+	destroy_trigger = {
+		exists = owner
+		owner = { has_authority = auth_machine_intelligence }
+		owner_is_caretaker = no
+	}
+	
+	allow = {
+		
+		has_major_upgraded_capital = yes
+	}
+
+	upgrades = {
+		building_hydroponics_farm_4
+	}	
+	
+	prerequisites = {
+		"tech_gene_crops_caretakers"
+	}
+}
+
+building_hydroponics_farm_4 = {
+	# tags = { hydroponics_farm }
+	icon = building_hydroponics_farm
+	base_buildtime = @b4time
+	can_build = no
+	resources = {
+		category = planet_buildings
+		cost = { minerals = @b4cost }
+		upkeep = { energy = @b4upkeep }
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_valid_civic = civic_agrarian_idyll }
+			}
+			unity = 1
+		}
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_tradition = tr_adaptability_finish }	
+			}
+			minerals = 1
+		}
+	}
+
+	planet_modifier = {
+		job_agri_drone_add = @b4_jobs
+	}
+
+	show_tech_unlock_if = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			is_caretaker = yes
+		}
+	}
+
+	potential = {
+		OR = {
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+			owner_is_caretaker = yes
+		}
+		planet = { NOT = { is_planet_class = pc_habitat } }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		owner = { has_authority = auth_machine_intelligence }
+		owner_is_caretaker = no
+	}
+	
+	allow = {
+		has_fully_upgraded_capital = yes
+	}
+	
+	upgrades = {
+		building_hydroponics_farm_5
+	}	
+	
+	prerequisites = {
+		"tech_nano_vitality_crops_caretakers"
+	}	
+}
+
+building_hydroponics_farm_5 = {
+	# tags = { hydroponics_farm }
+	icon = building_hydroponics_farm
+	base_buildtime = @b5time
+	can_build = no
+	resources = {
+		category = planet_buildings
+		cost = { minerals = @b5cost }
+		upkeep = { energy = @b5upkeep }
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_valid_civic = civic_agrarian_idyll }
+			}
+			unity = 1
+		}
+		produces = {
+			trigger = {
+				exists = owner
+				owner = { has_tradition = tr_adaptability_finish }	
+			}
+			minerals = 1
+		}
+	}
+
+	planet_modifier = {
+		job_agri_drone_add = @b5_jobs
+	}
+	
+	show_tech_unlock_if = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			is_caretaker = yes
+		}
+	}
+
+	potential = {
+		OR = {
+			NOT = {
+				owner = { has_authority = auth_machine_intelligence }
+			}
+			owner_is_caretaker = yes
+		}
+		planet = {
+			is_capital = yes
+			NOT = { is_planet_class = pc_habitat }	
+		}
+	}
+
+	destroy_trigger = {
+		OR = {
+			planet = { is_capital = no }
+			AND = {
+				exists = owner
+				owner = { has_authority = auth_machine_intelligence }
+				owner_is_caretaker = no
+			}
+		}
+	}
+	
+	allow = {
+		has_fully_upgraded_capital = yes
+	}
+	
+	prerequisites = {
+		"tech_nano_vitality_crops_caretakers"
+	}
+}

@@ -1,0 +1,845 @@
+##################
+### TECH COSTS ###
+##################
+#If you change any of these, use replace in files so the values are the same across all files
+
+@tier1cost1 = 500
+@tier1cost2 = 750
+@tier1cost3 = 1000
+
+@tier2cost1 = 1500
+@tier2cost2 = 2000
+@tier2cost3 = 2500
+
+@tier3cost1 = 4000
+@tier3cost2 = 5000
+@tier3cost3 = 6000
+
+@tier4cost1 = 8000
+@tier4cost2 = 10000
+@tier4cost3 = 12000
+
+@tier5cost1 = 15000
+@tier5cost2 = 17500
+@tier5cost3 = 20000
+
+####################
+### TECH WEIGHTS ###
+####################
+
+@tier1weight1 = 100
+@tier1weight2 = 95
+@tier1weight3 = 90
+
+@tier2weight1 = 85
+@tier2weight2 = 75
+@tier2weight3 = 70
+
+@tier3weight1 = 65
+@tier3weight2 = 60
+@tier3weight3 = 50
+
+@tier4weight1 = 45
+@tier4weight2 = 40
+@tier4weight3 = 35
+
+@tier5weight1 = 30
+@tier5weight2 = 25
+@tier5weight3 = 20
+
+# ##################
+# Genetics
+# ##################
+
+#Genome Mapping
+tech_genome_mapping_caretaker = {
+	cost = @tier1cost1
+	area = society
+	tier = 1
+	category = { biology }
+	weight = @tier1weight1
+	
+	gateway = biological
+	
+	modifier = {
+		pop_growth_speed = 0.10
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			has_tradition = tr_supremacy_adopt
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Epigenetic Triggers
+tech_epigenetic_triggers_caretaker = {
+	cost = @tier2cost2
+	area = society
+	tier = 2
+	category = { biology }
+	prerequisites = { "tech_genome_mapping_caretaker" }
+	weight = @tier2weight2
+	
+	feature_flags = {
+		uplifting
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+		modifier = {
+			factor = 0
+			NOR = {
+				has_country_flag = found_presapients
+				any_planet_within_border = { any_owned_pop = { is_sapient = no } }			
+			}
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Cloning
+tech_cloning_caretaker = {
+	cost = @tier2cost2
+	area = society
+	tier = 2
+	category = { biology }	
+	prerequisites = { "tech_genome_mapping_caretaker" }
+	weight = @tier2weight2
+	
+	modifier = {
+		pop_growth_speed = 0.10
+	}
+
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		factor = 1.5 	# genetech needs to be a bit more common
+		modifier = {
+			factor = 1.25
+			has_tradition = tr_supremacy_adopt
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Gene Tailoring
+@tech_gene_tailoring_POINTS = 1
+tech_gene_tailoring_caretaker = {
+	cost = @tier3cost1
+	area = society
+	tier = 3
+	category = { biology }	
+	prerequisites = { "tech_genome_mapping_caretaker" }
+	weight = @tier3weight1
+	
+	gateway = biological
+	
+	modifier = {
+		description = tech_gene_tailoring_modifier_desc
+		description_parameters = {
+			POINTS = @tech_gene_tailoring_POINTS
+		}
+		BIOLOGICAL_species_trait_points_add = @tech_gene_tailoring_POINTS
+	}
+	
+	feature_flags = {
+		modify_traits
+		pop_self_modification
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		factor = 1.5 	# genetech needs to be a bit more common
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+# Glandular Acclimation (planet preference modding)
+tech_glandular_acclimation_caretaker = {
+	cost = @tier3cost3
+	area = society
+	tier = 3
+	category = { biology }	
+	prerequisites = { "tech_gene_tailoring_caretaker" }
+	weight = @tier3weight3
+	
+	feature_flags = {
+		habitability_gene_modding
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		factor = 1.5 	# genetech needs to be a bit more common
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Targeted Gene Expressions
+@tech_gene_expressions_POINTS = 1
+tech_gene_expressions_caretaker = {
+	cost = @tier3cost3
+	area = society
+	category = { biology }
+	tier = 3
+	is_rare = yes
+	prerequisites = { "tech_gene_tailoring_caretaker" }
+	weight = @tier3weight3
+	
+	modifier = {
+		description = tech_gene_expressions_modifier_desc
+		description_parameters = {
+			POINTS = @tech_gene_expressions_POINTS
+		}
+		BIOLOGICAL_species_trait_points_add = @tech_gene_expressions_POINTS
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {	
+		modifier = {
+			factor = 0.50
+			NOR = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_biology"
+				}
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_curator"
+				}
+			}
+		}
+		modifier = {
+			factor = 1.50
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_spark_of_genius"
+			}
+		}
+	}	
+	
+	ai_weight = {
+		factor = 3 #rare tech
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+# ##################
+# Biolab and Colonization
+# ##################
+
+#Atmospheric Filtering
+tech_colonization_2_caretaker = {
+	cost = @tier1cost3
+	area = society
+	tier = 2
+	category = { new_worlds }
+	prerequisites = { "tech_colonization_1" }
+	weight = @tier1weight3
+	
+	modifier = {
+		pop_environment_tolerance = 0.05
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+		modifier = {
+			factor = 0.7
+			has_authority = auth_machine_intelligence
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+	}
+}
+
+#Hostile Environment Adaptation
+tech_colonization_3_caretaker = {
+	cost = @tier2cost3
+	area = society
+	tier = 2
+	category = { new_worlds }
+	prerequisites = { "tech_colonization_2_caretaker" }
+	weight = @tier2weight3
+	
+	modifier = {
+		pop_environment_tolerance = 0.05
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+		modifier = {
+			factor = 0.7
+			has_authority = auth_machine_intelligence
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+	}
+}
+
+#Foreign Soil Enrichment
+tech_colonization_4_caretaker = {
+	cost = @tier3cost3
+	area = society
+	tier = 3
+	category = { new_worlds }
+	prerequisites = { "tech_colonization_3_caretaker" }
+	weight = @tier3weight3
+	
+	modifier = {
+		pop_environment_tolerance = 0.05
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+		modifier = {
+			factor = 0.7
+			has_authority = auth_machine_intelligence
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+	}
+}
+
+#Eco-Integration Studies
+tech_colonization_5_caretaker = {
+	cost = @tier4cost3
+	area = society
+	tier = 4
+	category = { new_worlds }
+	prerequisites = { "tech_colonization_4_caretaker" }
+	weight = @tier4weight3
+	
+	modifier = {
+		pop_environment_tolerance = 0.05
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+		modifier = {
+			factor = 0.7
+			has_authority = auth_machine_intelligence
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+	}
+}
+
+#Tomb World Adaptation
+tech_tomb_world_adaption_caretaker = {
+	cost = @tier3cost1
+	area = society
+	tier = 3
+	category = { new_worlds }
+	prerequisites = { "tech_colonization_3_caretaker" }
+	weight = @tier3weight1
+	is_rare = yes
+	
+	modifier = {
+		pc_nuked_habitability = 0.2
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}	
+	
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.20
+			NOR = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_new_worlds"
+				}
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_curator"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			any_owned_planet = {
+				is_planet_class = pc_nuked
+			}
+		}	
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_new_worlds"
+			}
+		}
+	}
+}
+
+# ##################
+# Empire Management
+# ##################
+
+#Subdermal Implants
+tech_subdermal_stimulation_caretaker = {
+	cost = @tier2cost2
+	area = society
+	tier = 2
+	category = { biology }
+	prerequisites = { "tech_genome_mapping_caretaker" }
+	weight = @tier2weight2
+	is_rare = yes
+	
+	# unlocks Chemical Bliss living standard
+
+	feature_flags = {
+		bliss_standard
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}	
+	
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 1.25
+			NOR = {
+				has_ethic = ethic_egalitarian
+				has_ethic = ethic_fanatic_egalitarian
+			}
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 3
+			NOR = {
+				has_ethic = ethic_egalitarian
+				has_ethic = ethic_fanatic_egalitarian
+			}
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+# ##################
+# Farming
+# ##################
+
+# These modified vanilla tech (currently agri tech do in fact show up in vanilla for machine)
+# so these techs are kinda unneccessary unless you want to adjust their weights
+
+#Hydroponics
+tech_hydroponics_caretakers = {
+	icon = tech_hydroponics
+	cost = @tier1cost1
+	area = society
+	tier = 1
+	category = { biology }
+	prerequisites = { "tech_eco_simulation" }
+	weight = @tier1weight1
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5 #farms are good
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Gene Crops
+tech_gene_crops_caretakers = {
+	icon = tech_gene_crops
+	cost = @tier2cost3
+	area = society
+	tier = 2
+	category = { biology }
+	prerequisites = { "tech_hydroponics_caretakers" "tech_colonial_centralization"}
+	weight = @tier2weight3
+
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5 #farms are good
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Nano-Vitality Crops
+tech_nano_vitality_crops_caretakers = {
+	icon = tech_nano_vitality_crops
+	cost = @tier4cost2
+	area = society
+	tier = 4
+	category = { biology }	
+	prerequisites = { "tech_gene_crops_caretakers" "tech_galactic_administration"}
+	weight = @tier4weight2
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+	
+	ai_weight = {
+		factor = 1.5 #farms are good
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}
+
+#Nutrient Replication
+tech_nutrient_replication_caretakers = {
+	icon = tech_nutrient_replication
+	cost = @tier4cost3
+	area = society
+	tier = 4
+	is_rare = yes
+	category = { biology }
+	prerequisites = { "tech_nano_vitality_crops_caretakers" }
+	weight = @tier4weight3
+		
+	modifier = {
+		planet_jobs_food_produces_mult = 0.15
+		starbase_constructions_food_produces_mult = 0.10
+	}
+	
+	potential = {
+		is_caretaker = yes
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 0.50
+			NOR = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_biology"
+				}
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_curator"
+				}
+			}
+		}	
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+	}
+	
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_biology"
+			}
+		}
+	}
+}

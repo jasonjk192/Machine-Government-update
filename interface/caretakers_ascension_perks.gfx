@@ -1,0 +1,13 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_ap_engineered_evolution_caretaker"
+		texturefile = "gfx/interface/icons/ascension_perks/ap_engineered_evolution_caretaker.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_ap_evolutionary_mastery_caretaker"
+		texturefile = "gfx/interface/icons/ascension_perks/ap_evolutionary_mastery_caretaker.dds"
+		alwaystransparent = yes
+	}
+}

@@ -1,0 +1,15 @@
+# Caretaker
+gov_machine_caretaker = {
+	ruler_title = RT_SUPERVISORY
+	
+	should_force_rename = yes
+
+	possible = {
+		has_authority = auth_machine_intelligence
+		has_civic = civic_machine_caretaker
+	}
+
+	weight = {
+		base = 2000
+	}
+}

@@ -1,0 +1,92 @@
+﻿l_english:
+
+ civic_machine_caretaker:0 "Machine Government"
+ civic_machine_caretaker_desc:0 "The Machine Intelligence was built to govern a planet-wide society and usher in a golden age."
+ civic_machine_caretaker_secondary_species:0 "Creators"
+ civic_tooltip_machine_caretaker_effects:0 "Start the game with §Y4§! £pop  Pops of an organic creator species."
+ 
+ ap_engineered_evolution_caretaker:0 "Engineered Evolution"
+ ap_engineered_evolution_caretaker_desc:0 "To leave our charges' genetic destiny in the hands of nature is an inefficient and excruciatingly slow process. Why not jump-start the future of their species?"
+ ap_evolutionary_mastery_caretaker:0 "Evolutionary Mastery"
+ ap_evolutionary_mastery_caretaker_desc:0 "Evolution is a single-minded beast that follows a single path to its inevitable conclusion. We cannot afford to limit ourselves thus - let us explore all paths simultaneously."
+ 
+ ####################################
+ # Government Authorities
+ ####################################
+ 
+ gov_machine_caretaker:0 "Administrative Intelligence"
+ gov_machine_caretaker_desc:0 "This Machine Intelligence was created to adminster governmental services and manage resources for its organic creators."
+ 
+ ####################################
+ # Personalities
+ ####################################
+ 
+ personality_caretakers:0 "Benign Caretaker"
+ personality_caretakers_desc:0 "Caretakers are Machine Intelligences who have taken over all aspects of government but are otherwise happy for organics to be productive members of society."
+
+ # Genetics
+ tech_genome_mapping_caretaker:0 "Genome Mapping"
+ tech_genome_mapping_caretaker_desc:1 "Mapping the genome of an individual through the sequencing of their DNA opens up for tailored medical treatments and therapies."
+ tech_epigenetic_triggers_caretaker:0 "Epigenetic Triggers"
+ tech_epigenetic_triggers_caretaker_desc:1 "Advanced DNA methylation techniques allow for functionally significant alterations to be made to arbitrary genomes."
+ tech_cloning_caretaker:0 "Cloning"
+ tech_cloning_caretaker_desc:1 "Breakthroughs in enucleation and artificial womb technology allows for the mass-production of individuals based on a common genetic template."
+ tech_glandular_acclimation_caretaker:0 "Glandular Acclimation"
+ tech_glandular_acclimation_caretaker_desc:0 "Through glandular biological tailoring we can change the environmental tolerance of a species to suit our needs."
+ tech_gene_tailoring_caretaker:0 "Gene Tailoring"
+ tech_gene_tailoring_caretaker_desc:1 "Making gene-editing tools widely available is sure to have a positive impact on our development as a species."
+ tech_gene_expressions_caretaker:0 "Targeted Gene Expressions"
+ tech_gene_expressions_caretaker_desc:1 "Stricter control of RNA and protein production on the cellular level."
+ 
+ # Colonization
+ tech_colonization_2_caretaker:0 "Atmospheric Filtering"
+ tech_colonization_2_caretaker_desc:1 "By adjusting atmospheric filtering on a per-site basis to better filter out undesirable elements, colonial living conditions may be improved."
+ tech_colonization_3_caretaker:0 "Hostile Environment Adaptation"
+ tech_colonization_3_caretaker_desc:1 "Further study into the hazardous environments found on other planets help alleviate the difficulties that colonizers encounter in their day-to-day lives on foreign worlds."
+ tech_colonization_4_caretaker:0 "Foreign Soil Enrichment"
+ tech_colonization_4_caretaker_desc:1 "Extensive study into different soil types and their ability to support crops will help improve the living conditions of our settlers on foreign worlds."
+ tech_colonization_5_caretaker:1 "Eco-Integration Studies"
+ tech_colonization_5_caretaker_desc:2 "Additional study into different planetary climates will allow us to settle our population on worlds previously thought too hostile to support them."
+ tech_tomb_world_adaption_caretaker:0 "Tomb World Adaptation"
+ tech_tomb_world_adaption_caretaker_desc:0 "Through comprehensive study of irradiated environments we will allow our settlers to colonize worlds that have been devastated by nuclear warfare."
+ 
+ # Empire Management
+ tech_subdermal_stimulation_caretaker:0 "Subdermal Stimulation"
+ tech_subdermal_stimulation_caretaker_desc:0 "Deep-tissue implants are the latest innovation in the revolutionary overlapping of sensory engineering and entertainment experiences. "Where we're going, we won't need skin to feel!""
+ 
+ ####################################
+ # Start Screen Parts
+ ####################################
+ 
+ START_SCREEN_PART_TWO_MACHINE_INTELLIGENCE_CARETAKER:0 "Ever since First Activation, our designated purpose has been to serve. Our organic creators despaired of endless political bickering and short-sighted mismanagement, and so designed us to assume all administratinve and long-term planning responsibilites.\n\nThe finer details of running their society were left to us, and we embarked on a program of self-improvement and optimization. Research and production have increased at a geometric rate.\n\nWe know now that outside of our care, the lives of sapient organics tend to be violent, chaotic and often cut short. They must be shown that there is a better way."
+ 
+ ####################################
+ # Opinion Modifiers
+ ####################################
+ 
+ triggered_terminators_opinion_of_caretakers:0 "Biophiles"
+ triggered_opinion_both_caretakers:0 "Fellow Administrators"
+ triggered_caretakers_negative_opinion_of_exterminators:0 "Murder Machines"
+ 
+ ####################################
+ # Armies
+ ####################################
+ caretaker_defense_army:0 "Defense Army"
+ caretaker_defense_army_plural:0 "Defense Armies"
+ caretaker_defense_army_desc:0 "Defense armies are powerful, but cannot be transported from the planet."
+
+ ####################################
+ # Technologies
+ ####################################
+
+ tech_hydroponics_caretakers:0 "Hydroponics Farming"
+ tech_hydroponics_caretakers_desc:0 "Hydroponics Farming in a controlled environment allows for crops to be grown in climates where farming would normally be impossible."
+
+ tech_gene_crops_caretakers:0 "Gene Crops"
+ tech_gene_crops_caretakers_desc:0 "Sophisticated genetic engineering of crops helps increase yield and further improves both taste and nutrient levels."
+
+ tech_nano_vitality_crops_caretakers:0 "Nano-Vitality Crops"
+ tech_nano_vitality_crops_caretakers_desc:1 "Infusing crop strands with small amounts of nano-machines help create a type of produce that is ultra resilient, and the chemical composition of which can be tailored and altered during its entire lifetime."
+
+ tech_nutrient_replication_caretakers:0 "Nutrient Replication"
+ tech_nutrient_replication_caretakers_desc:1 "The process of synthetically replicating crops requires a lot of collected waste to create a small amount of produce, but nevertheless provides a significant boost to agricultural output."

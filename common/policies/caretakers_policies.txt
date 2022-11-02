@@ -1,0 +1,155 @@
+##########################################################################
+# Empire Policies
+#
+# #####
+#
+# AI:
+# Base AI-weight is 100, if unchanged
+# AI will grab whatever policy-option has the highest weight
+#
+# #####
+#
+##########################################################################
+
+food_stockpiling = {
+	potential = {
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			has_civic = civic_machine_servitor
+			has_civic = civic_machine_caretaker
+		}
+	}
+	
+	option = {
+		name = "food_stockpiling_1"
+		
+		policy_flags = {}
+		modifier = {
+			country_resource_max_food_add = 200
+		}
+		
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				OR = {
+					num_pops >= 50
+					NOT = { is_country_type = default }
+				}				
+			}
+		}
+	}	
+	
+	option = {
+		name = "food_stockpiling_2"
+		
+		policy_flags = {}
+		modifier = {
+			country_resource_max_food_add = 1000
+		}
+		
+		AI_weight = {
+			factor = 5
+			modifier = {
+				factor = 0
+				OR = {
+					num_pops >= 200
+					NOT = { is_country_type = default }
+				}	
+			}
+		}
+	}
+	
+	option = {
+		name = "food_stockpiling_3"
+		
+		policy_flags = {}
+		modifier = {
+			country_resource_max_food_add = 5000
+		}
+		
+		AI_weight = {
+			factor = 1
+		}
+	}
+}
+
+refugees = {
+	potential = {
+		has_encountered_other_species = yes
+		is_country_type = default
+		OR = {
+			NOT = { has_ethic = "ethic_gestalt_consciousness" }
+			has_valid_civic = civic_machine_servitor
+			has_valid_civic = civic_machine_caretaker
+		}	
+	}
+	
+	option = {
+		name = "refugees_not_allowed"
+		
+		valid = {
+			NOR = { 
+				has_ethic = "ethic_xenophile" 
+				has_ethic = "ethic_fanatic_xenophile" 
+			}
+		}
+		
+		policy_flags = {
+			refugees_not_allowed
+		}	
+	}
+	
+	option = {
+		name = "refugees_only_citizens"
+		
+		potential = {
+			NOT = { has_ethic = "ethic_gestalt_consciousness" }
+		}
+		
+		policy_flags = {
+			refugees_only_citizens
+		}
+		
+		valid = {
+			NOT = {
+				has_authority = auth_hive_mind
+			}
+		}
+		
+		AI_weight = {
+			factor = 5
+		}
+	}
+	
+	option = {
+		name = "refugees_allowed"
+		
+		policy_flags = {
+			refugees_allowed
+		}
+		
+		valid = {
+			NOR = { 
+				has_ethic = "ethic_xenophobe" 
+				has_ethic = "ethic_fanatic_xenophobe" 
+			}
+		}
+		
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOR = {
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+					has_valid_civic = civic_machine_servitor
+					AND = {
+						has_valid_ai_personality = yes
+						NOT = { has_ai_personality_behaviour = multispecies }					
+					}
+				}
+			}
+		}
+	}
+}

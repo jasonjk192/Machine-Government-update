@@ -1,0 +1,12 @@
+# Machine Empire - Caretaker
+part = {
+	location = 1
+	localization = "START_SCREEN_PART_TWO_MACHINE_INTELLIGENCE_CARETAKER"
+	
+	trigger = {
+		has_government = gov_machine_caretaker
+		NOT = { 
+			has_country_flag = custom_start_screen 
+		}
+	}
+}

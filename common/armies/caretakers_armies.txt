@@ -1,0 +1,36 @@
+#############################
+# Note:
+# "trait_robotic_1" refers to Robot
+# "trait_robotic_2" refers to Droid
+# "trait_robotic_3" refers to Synthetic 
+# These no longer exist and have been split into multiple traits
+# ---------------------------
+# Which traits to be considered as replacements for "trait_robotic_1" and "trait_robotic_2" ?
+#############################
+
+caretaker_defense_army = {
+	defensive = yes
+	# is_building_spawned = yes (Not sure about this)
+	health = 1.25
+	damage = 1.50
+	morale = 1.25
+	collateral_damage = 0.0
+	war_exhaustion = 0.0
+	icon = GFX_army_type_defensive
+		
+	potential = {
+		from = {
+			NOR = {
+				# has_trait = "trait_robotic_1"
+				# has_trait = "trait_robotic_2"
+				# has_trait = "trait_robotic_3"
+				# has_trait = "trait_machine_unit"
+				is_robotic = no
+				is_sapient = no
+			}
+		}
+		owner = {
+			has_valid_civic = civic_machine_caretaker
+		}
+	}
+}

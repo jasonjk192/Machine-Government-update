@@ -1,0 +1,24 @@
+# Root = Pop
+# From = Country
+# This = Pop
+pop_eats_energy = {
+	custom_tooltip = {
+		fail_text = "POP EATS ENERGY"
+		OR = {
+			pop_maintenance_cost = { value > 0 resource = energy }
+			has_trait = trait_machine_unit # Native machine
+			has_trait = trait_mechanical # Robot
+			AND = {
+				exists = from
+				from = { has_authority = auth_machine_intelligence }
+				NOT = { from = { has_valid_civic = civic_machine_caretaker } }
+				NOT = { 
+					has_citizenship_type = {
+						type = citizenship_organic_trophy
+						country = from
+					}			
+				}
+			}
+		}
+	}
+}

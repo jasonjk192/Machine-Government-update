@@ -1,0 +1,33 @@
+owner_is_caretaker = {
+	exists = owner
+	owner = { has_government = gov_machine_caretaker }
+}
+is_caretaker = { has_government = gov_machine_caretaker }
+
+# Overwritten to allow organic admirals/generals in Machine Government
+# can_be_military_leader = {
+# 	is_enslaved = no
+# 	is_sapient = yes
+# 	OR = {
+# 		is_robot_pop = no
+# 		AND = {
+# 			# has_trait = trait_robotic_3
+# 			owner = { has_policy_flag = ai_full_rights }
+# 		}
+# 		owner = { has_authority = auth_machine_intelligence }
+# 	}
+# 	OR = {
+# 		AND = { # MIs only accept Fully Integrated leaders
+# 			owner = { has_authority = auth_machine_intelligence }
+# 			has_citizenship_type = { type = citizenship_full_machine }
+# 			has_military_service_type = { type = military_service_full }
+# 		}
+# 		AND = { # non-MIs accept whatever
+# 			OR = {
+# 				NOT = { owner = { has_authority = auth_machine_intelligence } }
+# 				owner_is_caretaker = yes
+# 			}
+# 			has_military_service_type = { type = military_service_full }
+# 		}
+# 	}
+# }

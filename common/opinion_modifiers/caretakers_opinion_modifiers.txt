@@ -1,0 +1,32 @@
+triggered_terminators_opinion_of_caretakers = {
+	trigger = {
+		is_country_type = default
+		has_civic = civic_machine_terminator
+		FROM = { has_civic = civic_machine_caretaker }
+	}
+	opinion = {
+		base = -200
+	}
+}
+
+triggered_opinion_both_caretakers = {
+	trigger = {
+		is_country_type = default
+		has_civic = civic_machine_caretaker
+		FROM = { has_civic = civic_machine_caretaker }
+	}
+	opinion = {
+		base = 40
+	}
+}
+
+triggered_caretakers_negative_opinion_of_exterminators = {
+	trigger = {
+		is_country_type = default
+		has_civic = civic_machine_caretaker
+		FROM = { has_civic = civic_machine_terminator }
+	}
+	opinion = {
+		base = -1000
+	}
+}

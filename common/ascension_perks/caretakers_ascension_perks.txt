@@ -1,0 +1,100 @@
+# These perks are locked for machines in vanilla (obviously)
+# So only caretaker machines have access to these perks
+
+#################
+# ASCENSION PATHS
+#################
+
+@ap_engineered_evolution_POINTS = 3
+@ap_engineered_evolution_COST_MULT = -0.25
+ap_engineered_evolution_caretaker = {
+	on_enabled = {
+		hidden_effect = {
+			country_event = { id = utopia.2700 }
+		}
+	}
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_1"
+			num_ascension_perks > 0
+		}
+		custom_tooltip = {
+			fail_text = "requires_technology_gene_tailoring"
+			has_technology = tech_gene_tailoring_caretaker
+		}
+	}
+	modifier = {
+		description = ap_engineered_evolution_modifier_desc
+		description_parameters = {
+			POINTS = @ap_engineered_evolution_POINTS
+			COST_MULT = @ap_engineered_evolution_COST_MULT
+		}
+
+		BIOLOGICAL_species_trait_points_add = @ap_engineered_evolution_POINTS
+
+		modify_species_cost_mult = @ap_engineered_evolution_COST_MULT
+	}
+	
+	potential = {
+		host_has_dlc = "Utopia"
+		NOT = { has_ascension_perk = ap_engineered_evolution_caretaker }
+		has_authority = "auth_machine_intelligence"
+		has_valid_civic = civic_machine_caretaker
+	}
+	
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 0
+			num_owned_planets < 10
+		}
+	}
+}
+
+@ap_evolutionary_mastery_POINTS = 3
+@ap_evolutionary_mastery_COST_MULT = -0.25
+ap_evolutionary_mastery_caretaker = {
+	on_enabled = {
+		add_research_option = tech_genetic_resequencing
+		hidden_effect = {
+			country_event = { id = utopia.2703 }
+		}
+	}
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_ascension_perks_3"
+			num_ascension_perks > 2
+		}
+		custom_tooltip = {
+			fail_text = "requires_technology_glandular_acclimation"
+			has_technology = tech_glandular_acclimation_caretaker
+		}
+		custom_tooltip = {
+			fail_text = "requires_ap_engineered_evolution"
+			has_ascension_perk = ap_engineered_evolution_caretaker
+		}
+	}
+	modifier = {
+		description = ap_evolutionary_mastery_modifier_desc
+		description_parameters = {
+			POINTS = @ap_evolutionary_mastery_POINTS
+			COST_MULT = @ap_evolutionary_mastery_COST_MULT
+		}
+
+		BIOLOGICAL_species_trait_points_add = @ap_evolutionary_mastery_POINTS
+
+		modify_species_cost_mult = @ap_evolutionary_mastery_COST_MULT
+	}
+	
+	potential = {
+		host_has_dlc = "Utopia"
+		NOT = { has_ascension_perk = ap_evolutionary_mastery_caretaker }
+		has_authority = "auth_machine_intelligence"
+		has_valid_civic = civic_machine_caretaker
+	}
+	
+	ai_weight = {
+		factor = 100
+	}
+}
+
