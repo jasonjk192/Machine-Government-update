@@ -1,0 +1,133 @@
+# default empires - proactive version
+default_end_stage_proactive = {
+	icon = GFX_firstcontact_icon_success
+	picture = GFX_evt_mysterious_signal
+
+	difficulty = 5
+
+	stage_event = {
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 10
+		}
+		event = first_contact.100
+	}
+
+	stage_event = { #They are hive mind
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 50
+			modifier = {
+				factor = 0
+				OR = {
+					contact_country = { is_hive_empire = no }
+					owner = { is_machine_empire = yes }
+				}
+			}
+		}
+		event = first_contact.103
+	}
+
+	stage_event = { #They are machine intelligence (not caretakers)
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 50
+			modifier = {
+				factor = 0
+				contact_country = { is_machine_empire = no }
+			}
+			modifier = {
+				factor = 0
+				contact_country = { has_valid_civic = civic_machine_caretaker }
+			}
+		}
+		event = first_contact.104
+	}
+
+	stage_event = { #They are machine intelligence (caretakers)
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 50
+			modifier = {
+				factor = 0
+				contact_country = { is_machine_empire = no }
+			}
+			modifier = {
+				factor = 0
+				contact_country = { NOT = { has_valid_civic = civic_machine_caretaker } }
+			}
+		}
+		event = first_contact_caretakers.1
+	}
+
+	on_roll_failed = {
+		standard_first_contact_on_roll_failed = { RANDOM_EVENTS = late_fc_random_events }
+	}
+}
+
+# default empires - cautious version (more difficult)
+default_end_stage_cautious = {
+	icon = GFX_firstcontact_icon_success
+	picture = GFX_evt_mysterious_signal
+
+	difficulty = 7
+
+	stage_event = { #Default option
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 1
+		}
+		event = first_contact.100
+	}
+
+	stage_event = { #They are hive mind
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 50
+			modifier = {
+				factor = 0
+				OR = {
+					contact_country = { is_hive_empire = no }
+					owner = { is_machine_empire = yes }
+				}
+			}
+		}
+		event = first_contact.103
+	}
+
+	stage_event = { #They are machine intelligence (not caretakers)
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 50
+			modifier = {
+				factor = 0
+				contact_country = { is_machine_empire = no }
+			}
+			modifier = {
+				factor = 0
+				contact_country = { has_valid_civic = civic_machine_caretaker }
+			}
+		}
+		event = first_contact.104
+	}
+
+	stage_event = { #They are machine intelligence (caretakers)
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 50
+			modifier = {
+				factor = 0
+				contact_country = { is_machine_empire = no }
+			}
+			modifier = {
+				factor = 0
+				contact_country = { NOT = { has_valid_civic = civic_machine_caretaker } }
+			}
+		}
+		event = first_contact_caretakers.1
+	}
+
+	on_roll_failed = {
+		standard_first_contact_on_roll_failed = { RANDOM_EVENTS = late_fc_random_events }
+	}
+}

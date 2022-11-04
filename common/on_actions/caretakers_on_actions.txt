@@ -2,6 +2,13 @@
 # This on_action should always result in the creation of at least one new pop.
 # scope: planet
 # from: founder species
+
+on_game_start_country = {
+	events = {
+		caretakers.0
+	}
+}
+
 empire_init_create_capital_secondary_pops = {
 	events = {
 		caretakers.1
