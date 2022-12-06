@@ -90,3 +90,10 @@
 
  tech_nutrient_replication_caretakers:0 "Nutrient Replication"
  tech_nutrient_replication_caretakers_desc:1 "The process of synthetically replicating crops requires a lot of collected waste to create a small amount of produce, but nevertheless provides a significant boost to agricultural output."
+
+ ####################################
+ # Misc
+ ####################################
+
+ requires_domination_adopted:0 "Requires Domination Tradition Adoption"
+ requires_domination_adopted_desc:0 "Requires Domination Tradition Adoption"

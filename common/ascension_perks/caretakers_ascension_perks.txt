@@ -55,7 +55,17 @@ ap_engineered_evolution_caretaker = {
 @ap_evolutionary_mastery_COST_MULT = -0.25
 ap_evolutionary_mastery_caretaker = {
 	on_enabled = {
-		add_research_option = tech_genetic_resequencing
+		# add_research_option = tech_genetic_resequencing
+		if = {
+			limit = {
+				has_origin = origin_clone_army
+				OR = {
+					has_trait = trait_clone_soldier_infertile
+					has_trait = trait_clone_soldier_infertile_full_potential
+				}
+			}
+			custom_tooltip = clone_soldier_locked_genes
+		}
 		hidden_effect = {
 			country_event = { id = utopia.2703 }
 		}

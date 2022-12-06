@@ -798,7 +798,8 @@ action_invite_to_federation = {
 			OR = {
 				has_authority = auth_machine_intelligence
 				has_federation = yes
-				has_non_swapped_tradition = tr_diplomacy_the_federation
+				has_tradition = tr_diplomacy_the_federation
+				# has_non_swapped_tradition = tr_diplomacy_the_federation
 				NOT = { is_country_type = default }
 			}
 		}
@@ -807,7 +808,8 @@ action_invite_to_federation = {
 			OR = {
 				NOT = { has_authority = auth_machine_intelligence }
 				has_federation = yes
-				has_swapped_tradition = tr_versatility_universal_compatibility
+				has_tradition = tr_versatility_universal_compatibility
+				# has_swapped_tradition = tr_versatility_universal_compatibility
 				NOT = { is_country_type = default }
 			}
 		}
@@ -1076,187 +1078,335 @@ action_close_borders = {
 # Turns another empire into a vassal.
 # Vassals are unable to colonize and declare wars. Vassals can be integrated and join overlord wars. Vassals are protected by overlord.
 # Usable by regular empires only. Cannot be used unless the target empire has at least 40% the total tech level of overlord.
-action_demand_vassalization = {
-	requires_actor_peace = yes
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	requires_recipient_independence = no
-	AI_acceptance_base_value = -50
+# action_demand_vassalization = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
 	
-	possible = {
-		custom_tooltip = {
-			fail_text = "requires_actor_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				NOT = { has_valid_civic = civic_fanatic_purifiers	}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_devouring_swarm"
-			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_devouring_swarm"
-			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				NOT = { has_civic = civic_machine_terminator }
-				AND = {
-					has_civic = civic_machine_terminator
-					from = {
-						OR = {
-							has_country_flag = synthetic_empire
-							has_authority = auth_machine_intelligence
-						}
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_civic = civic_machine_terminator } }
-				AND = {
-					from = { has_civic = civic_machine_terminator }
-					OR = {
-						has_country_flag = synthetic_empire
-						has_authority = auth_machine_intelligence
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_inward_perfection"
-			NOT = { has_valid_civic = civic_inwards_perfection }
-		}
-		custom_tooltip = {
-			fail_text = requires_domination_adopted
-			has_subjugation_req = yes
-		}
-	}
+# 	possible = {
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_valid_civic = civic_fanatic_purifiers	}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_devouring_swarm"
+# 			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_devouring_swarm"
+# 			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_civic = civic_machine_terminator }
+# 				AND = {
+# 					has_civic = civic_machine_terminator
+# 					from = {
+# 						OR = {
+# 							has_country_flag = synthetic_empire
+# 							has_authority = auth_machine_intelligence
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_civic = civic_machine_terminator } }
+# 				AND = {
+# 					from = { has_civic = civic_machine_terminator }
+# 					OR = {
+# 						has_country_flag = synthetic_empire
+# 						has_authority = auth_machine_intelligence
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_inward_perfection"
+# 			NOT = { has_valid_civic = civic_inwards_perfection }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = requires_domination_adopted
+# 			has_tradition = tr_domination_adopt
+# 			# has_subjugation_req = yes
+# 		}
+# 	}
 
-	proposable = {
-		is_neighbor_of = from
-		relative_power = { who = from value >= superior }
-		custom_tooltip = grants_subjugation_cb
-	}
+# 	proposable = {
+# 		is_neighbor_of = from
+# 		relative_power = { who = from value >= superior }
+# 		custom_tooltip = grants_subjugation_cb
+# 	}
 
-	on_decline = {
-		add_casus_belli = {
-			type = cb_subjugation
-			who = from
-			days = @cb_subjugation_length
-		}
-	}
-}
+# 	on_decline = {
+# 		add_casus_belli = {
+# 			type = cb_subjugation
+# 			who = from
+# 			days = @cb_subjugation_length
+# 		}
+# 	}
+# }
 
 # Turns another empire into a protectorate. Protectorates are subjects that have severely discounted tech and turn into a vassal once they hit 40% the total tech level of overlord.
 # Overlord gains influence from protectorates. Protectorates are allowed to colonize and declare wars and are protected by overlord. Protectorates do not join overlord wars.
 # Usable by regular empires only. Cannot be used unless the target empire has less than 40% the total tech level of overlord.
-action_demand_protectorate = {
-	requires_actor_peace = yes
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	requires_recipient_independence = no
-	AI_acceptance_base_value = -50
+# action_demand_protectorate = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
 
-	possible = {
-		custom_tooltip = {
-			fail_text = "requires_actor_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				NOT = { has_valid_civic = civic_fanatic_purifiers	}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_devouring_swarm"
-			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_devouring_swarm"
-			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				NOT = { has_civic = civic_machine_terminator }
-				AND = {
-					has_civic = civic_machine_terminator
-					from = {
-						OR = {
-							has_country_flag = synthetic_empire
-							has_authority = auth_machine_intelligence
-						}
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_civic = civic_machine_terminator } }
-				AND = {
-					from = { has_civic = civic_machine_terminator }
-					OR = {
-						has_country_flag = synthetic_empire
-						has_authority = auth_machine_intelligence
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_inward_perfection"
-			NOT = { has_valid_civic = civic_inwards_perfection }
-		}
-	}
+# 	possible = {
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_valid_civic = civic_fanatic_purifiers	}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_devouring_swarm"
+# 			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_devouring_swarm"
+# 			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_civic = civic_machine_terminator }
+# 				AND = {
+# 					has_civic = civic_machine_terminator
+# 					from = {
+# 						OR = {
+# 							has_country_flag = synthetic_empire
+# 							has_authority = auth_machine_intelligence
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_civic = civic_machine_terminator } }
+# 				AND = {
+# 					from = { has_civic = civic_machine_terminator }
+# 					OR = {
+# 						has_country_flag = synthetic_empire
+# 						has_authority = auth_machine_intelligence
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_inward_perfection"
+# 			NOT = { has_valid_civic = civic_inwards_perfection }
+# 		}
+# 	}
 
-	proposable = {
-		is_neighbor_of = from
-		relative_power = { who = from value >= superior }
-		custom_tooltip = grants_subjugation_cb
-	}
+# 	proposable = {
+# 		is_neighbor_of = from
+# 		relative_power = { who = from value >= superior }
+# 		custom_tooltip = grants_subjugation_cb
+# 	}
 
-	on_decline = {
-		add_casus_belli = {
-			type = cb_subjugation
-			who = from
-			days = @cb_subjugation_length
-		}
-	}
-}
+# 	on_decline = {
+# 		add_casus_belli = {
+# 			type = cb_subjugation
+# 			who = from
+# 			days = @cb_subjugation_length
+# 		}
+# 	}
+# }
 
 # Turns another empire into a tributary. Tributaries pay 25% of mineral and energy income to overlord.
 # Tributaries are allowed to colonize and declare wars and are NOT protected by overlord. Tributaries do not join overlord wars.
 # Usable by regular empires only.
-action_demand_tributary = {
+# action_demand_tributary = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
+
+# 	possible = {
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_valid_civic = civic_fanatic_purifiers	}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_devouring_swarm"
+# 			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_devouring_swarm"
+# 			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_civic = civic_machine_terminator }
+# 				AND = {
+# 					has_civic = civic_machine_terminator
+# 					from = {
+# 						OR = {
+# 							has_country_flag = synthetic_empire
+# 							has_authority = auth_machine_intelligence
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_civic = civic_machine_terminator } }
+# 				AND = {
+# 					from = { has_civic = civic_machine_terminator }
+# 					OR = {
+# 						has_country_flag = synthetic_empire
+# 						has_authority = auth_machine_intelligence
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_inward_perfection"
+# 			NOT = { has_valid_civic = civic_inwards_perfection }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = requires_domination_adopted
+# 			has_tradition = tr_domination_adopt
+# 			# has_subjugation_req = yes
+# 		}
+# 	}
+
+# 	proposable = {
+# 		is_neighbor_of = from
+# 		relative_power = { who = from value >= superior }
+# 		custom_tooltip = grants_subjugation_cb
+# 	}
+
+# 	on_decline = {
+# 		add_casus_belli = {
+# 			type = cb_subjugation
+# 			who = from
+# 			days = @cb_subjugation_length
+# 		}
+# 	}
+# }
+
+# Turns another empire into a Thrall. Thralls pay 25% of mineral and energy income to overlord.
+# Thralls are NOT allowed to colonize but may declare wars. They are NOT protected by overlord. They do NOT join overlord wars.
+# Usable by Xenophobe Awakened Empires only.
+# action_demand_thrall = {
+# 	requires_actor_peace = no
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
+# }
+
+# Turns another empire into a Dominion. Dominions pay 25% of mineral and energy income to overlord and have their ethics set to Fanatic Spiritualist/Authoritarian on creation.
+# Dominions are NOT allowed to colonize but may declare wars. They are NOT protected by overlord. They do NOT join overlord wars.
+# Usable by Spiritualist Awakened Empires only.
+# action_demand_dominion = {
+# 	requires_actor_peace = no
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
+# }
+
+# Turns another empire into a Satellite. Satellites pay 50% of research income to overlord and are required to ban artificial intelligence via policies.
+# Dominions are NOT allowed to colonize but may declare wars. They are NOT protected by overlord. They do NOT join overlord wars.
+# Usable by Materialist Awakened Empires only.
+# action_demand_satellite = {
+# 	requires_actor_peace = no
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
+# }
+
+# Turns another empire into a Signatory. Signatories are required to ban purging and slavery via policies.
+# Dominions are allowed to colonize but may NOT declare wars. They are protected by overlord. They do NOT join overlord wars.
+# Usable by Xenophile Awakened Empires only.
+# action_demand_signatory = {
+# 	requires_actor_peace = no
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	requires_recipient_independence = no
+# 	AI_acceptance_base_value = -50
+# }
+
+action_demand_subjugation = {
+	icon = "GFX_diplomacy_status_has_vassal"
 	requires_actor_peace = yes
 	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
+	diplo_view_acceptance_icon = no
 	should_notify_all_communications = yes
 	requires_recipient_independence = no
 	AI_acceptance_base_value = -50
+	action_type = aggressive
+
+	potential = {
+		hidden_trigger = {
+			FROM = {
+				NOT = {
+					has_overlord = ROOT
+				}
+			}
+		}
+	}
 
 	possible = {
 		custom_tooltip = {
@@ -1311,86 +1461,310 @@ action_demand_tributary = {
 				}
 			}
 		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_inward_perfection"
-			NOT = { has_valid_civic = civic_inwards_perfection }
+		if = {
+			limit = {
+				from = { has_valid_civic = civic_pompous_purists }
+				NOT = { root = { is_overlord_to = from } }
+			}
+			if = {
+				limit = {
+					has_intel = {
+						who = from
+						intel = civics
+					}
+				}
+				custom_tooltip = {
+					fail_text = requires_recipient_not_pompous
+					always = no
+				}
+			}
+			else = {
+				custom_tooltip = {
+					fail_text = diplo_action_no_low_intel
+					always = no
+				}
+			}
 		}
 		custom_tooltip = {
-			fail_text = requires_domination_adopted
-			has_subjugation_req = yes
+			fail_text = "requires_recipient_not_in_galactic_empire"
+			NAND = {
+				has_galactic_emperor = yes
+				is_galactic_community_member = no
+				from = { is_galactic_community_member = yes }
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_recipient_not_custodian"
+			from = { is_galactic_custodian = no }
+		}
+		custom_tooltip = {
+			fail_text = "requires_recipient_not_gal_emperor"
+			from = { is_galactic_emperor = no }
+		}
+		custom_tooltip = {
+			fail_text = "requires_recipient_not_btc"
+			from = { has_been_declared_crisis = no }
+		}
+		custom_tooltip = {
+			fail_text = "requires_not_guaranteeing_independence"
+			NOT = {
+				is_guaranteeing = from
+			}
 		}
 	}
 
 	proposable = {
-		is_neighbor_of = from
-		relative_power = { who = from value >= superior }
-		custom_tooltip = grants_subjugation_cb
-	}
-
-	on_decline = {
-		add_casus_belli = {
-			type = cb_subjugation
-			who = from
-			days = @cb_subjugation_length
+		if = {
+			limit = {
+				hidden_trigger = { from = { is_country_type = awakened_fallen_empire } }
+			}
+			hidden_trigger = { always = yes }
 		}
 	}
 }
 
-# Turns another empire into a Thrall. Thralls pay 25% of mineral and energy income to overlord.
-# Thralls are NOT allowed to colonize but may declare wars. They are NOT protected by overlord. They do NOT join overlord wars.
-# Usable by Xenophobe Awakened Empires only.
-action_demand_thrall = {
-	requires_actor_peace = no
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	requires_recipient_independence = no
-	AI_acceptance_base_value = -50
-}
-
-# Turns another empire into a Dominion. Dominions pay 25% of mineral and energy income to overlord and have their ethics set to Fanatic Spiritualist/Authoritarian on creation.
-# Dominions are NOT allowed to colonize but may declare wars. They are NOT protected by overlord. They do NOT join overlord wars.
-# Usable by Spiritualist Awakened Empires only.
-action_demand_dominion = {
-	requires_actor_peace = no
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	requires_recipient_independence = no
-	AI_acceptance_base_value = -50
-}
-
-# Turns another empire into a Satellite. Satellites pay 50% of research income to overlord and are required to ban artificial intelligence via policies.
-# Dominions are NOT allowed to colonize but may declare wars. They are NOT protected by overlord. They do NOT join overlord wars.
-# Usable by Materialist Awakened Empires only.
-action_demand_satellite = {
-	requires_actor_peace = no
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	requires_recipient_independence = no
-	AI_acceptance_base_value = -50
-}
-
-# Turns another empire into a Signatory. Signatories are required to ban purging and slavery via policies.
-# Dominions are allowed to colonize but may NOT declare wars. They are protected by overlord. They do NOT join overlord wars.
-# Usable by Xenophile Awakened Empires only.
-action_demand_signatory = {
-	requires_actor_peace = no
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	requires_recipient_independence = no
-	AI_acceptance_base_value = -50
-}
-
 # Ask to become vassal, see above for description of this subject type.
-action_ask_to_become_vassalized = {
+# action_ask_to_become_vassalized = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# 	possible = {
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_fanatic_purifiers"
+# 			NOT = { has_valid_civic = civic_fanatic_purifiers	}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_fanatic_purifiers"
+# 			from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_devouring_swarm"
+# 			NOT = { has_valid_civic = civic_hive_devouring_swarm }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_devouring_swarm"
+# 			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_civic = civic_machine_terminator }
+# 				AND = {
+# 					has_civic = civic_machine_terminator
+# 					from = {
+# 						OR = {
+# 							has_country_flag = synthetic_empire
+# 							has_authority = auth_machine_intelligence
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_civic = civic_machine_terminator } }
+# 				AND = {
+# 					from = { has_civic = civic_machine_terminator }
+# 					OR = {
+# 						has_country_flag = synthetic_empire
+# 						has_authority = auth_machine_intelligence
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_inward_perfection"
+# 			from = { NOT = { has_valid_civic = civic_inwards_perfection	} }
+# 		}
+# 	}
+# }
+
+# Ask to become protectorate, see above for description of this subject type.
+# action_ask_to_become_protectorate = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# 	possible = {
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_valid_civic = civic_fanatic_purifiers }
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_devouring_swarm"
+# 			NOT = { has_valid_civic = civic_hive_devouring_swarm }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_devouring_swarm"
+# 			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_civic = civic_machine_terminator }
+# 				AND = {
+# 					has_civic = civic_machine_terminator
+# 					from = {
+# 						OR = {
+# 							has_country_flag = synthetic_empire
+# 							has_authority = auth_machine_intelligence
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_civic = civic_machine_terminator } }
+# 				AND = {
+# 					from = { has_civic = civic_machine_terminator }
+# 					OR = {
+# 						has_country_flag = synthetic_empire
+# 						has_authority = auth_machine_intelligence
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_inward_perfection"
+# 			from = { NOT = { has_valid_civic = civic_inwards_perfection	} }
+# 		}
+# 	}
+# }
+
+# Ask to become tributary, see above for description of this subject type.
+# action_ask_to_become_tributary = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = yes
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# 	possible = {
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_valid_civic = civic_fanatic_purifiers	}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_fanatic_purifiers"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_devouring_swarm"
+# 			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_devouring_swarm"
+# 			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_actor_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				NOT = { has_civic = civic_machine_terminator }
+# 				AND = {
+# 					has_civic = civic_machine_terminator
+# 					from = {
+# 						OR = {
+# 							has_country_flag = synthetic_empire
+# 							has_authority = auth_machine_intelligence
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		custom_tooltip = {
+# 			fail_text = "requires_recipient_not_machine_terminator"
+# 			OR = {
+# 				is_same_species = from
+# 				from = { NOT = { has_civic = civic_machine_terminator } }
+# 				AND = {
+# 					from = { has_civic = civic_machine_terminator }
+# 					OR = {
+# 						has_country_flag = synthetic_empire
+# 						has_authority = auth_machine_intelligence
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# }
+
+# Ask to become thrall, see above for description of this subject type.
+# action_ask_to_become_thrall = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = no
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# }
+
+# Ask to become dominion, see above for description of this subject type.
+# action_ask_to_become_dominion = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = no
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# }
+
+# Ask to become satellite, see above for description of this subject type.
+# action_ask_to_become_satellite = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = no
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# }
+
+# Ask to become signatory, see above for description of this subject type.
+# action_ask_to_become_signatory = {
+# 	requires_actor_peace = yes
+# 	requires_recipient_peace = no
+# 	diplo_view_acceptance_icon = yes
+# 	should_notify_all_communications = yes
+# 	AI_acceptance_base_value = -50
+# }
+
+action_ask_to_become_subjugated = {
+	icon = "GFX_diplomacy_status_has_vassal"
 	requires_actor_peace = yes
 	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
+	diplo_view_acceptance_icon = no
 	should_notify_all_communications = yes
 	AI_acceptance_base_value = -50
+	action_type = positive
+
+	potential = {
+		hidden_trigger = {
+			is_subject = no
+		}
+	}
+
 	possible = {
 		custom_tooltip = {
 			fail_text = "requires_actor_not_fanatic_purifiers"
@@ -1439,176 +1813,61 @@ action_ask_to_become_vassalized = {
 			}
 		}
 		custom_tooltip = {
-			fail_text = "requires_recipient_not_inward_perfection"
-			from = { NOT = { has_valid_civic = civic_inwards_perfection	} }
-		}
-	}
-}
-
-# Ask to become protectorate, see above for description of this subject type.
-action_ask_to_become_protectorate = {
-	requires_actor_peace = yes
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	AI_acceptance_base_value = -50
-	possible = {
-		custom_tooltip = {
-			fail_text = "requires_actor_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				NOT = { has_valid_civic = civic_fanatic_purifiers }
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_devouring_swarm"
-			NOT = { has_valid_civic = civic_hive_devouring_swarm }
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_devouring_swarm"
-			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				NOT = { has_civic = civic_machine_terminator }
+			fail_text = "federation_actor_no_separate_treaties"
+			NOT = {
 				AND = {
-					has_civic = civic_machine_terminator
-					from = {
-						OR = {
-							has_country_flag = synthetic_empire
-							has_authority = auth_machine_intelligence
+					has_federation = yes
+					federation = { has_federation_law = treaties_separate_no }
+					NOT = { federation = { any_member = { is_same_value = root.from } } }
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = "federation_recipient_no_separate_treaties"
+			from = {
+				NOT = {
+					AND = {
+						has_federation = yes
+						federation = {
+							has_federation_law = treaties_separate_no
 						}
+						NOT = { federation = { any_member = { is_same_value = root } } }
 					}
 				}
 			}
 		}
 		custom_tooltip = {
-			fail_text = "requires_recipient_not_machine_terminator"
+			fail_text = "requires_not_in_galactic_empire"
 			OR = {
-				is_same_species = from
-				from = { NOT = { has_civic = civic_machine_terminator } }
-				AND = {
-					from = { has_civic = civic_machine_terminator }
-					OR = {
-						has_country_flag = synthetic_empire
-						has_authority = auth_machine_intelligence
-					}
+				NAND = {
+					has_galactic_emperor = yes
+					is_galactic_community_member = no
+					from = { is_galactic_community_member = yes }
+				}
+				NAND = {
+					has_galactic_emperor = yes
+					is_galactic_community_member = yes
+					from = { is_galactic_community_member = no }
 				}
 			}
 		}
 		custom_tooltip = {
-			fail_text = "requires_recipient_not_inward_perfection"
-			from = { NOT = { has_valid_civic = civic_inwards_perfection	} }
+			fail_text = "requires_recipient_not_custodian"
+			is_galactic_custodian = no
+		}
+		custom_tooltip = {
+			fail_text = "requires_recipient_not_gal_emperor"
+			is_galactic_emperor = no
+		}
+		custom_tooltip = {
+			fail_text = "requires_recipient_not_btc"
+			has_been_declared_crisis = no
+		}
+		custom_tooltip = {
+			fail_text = "requires_actor_not_pompous"
+			NOT = { has_valid_civic = civic_pompous_purists	}
 		}
 	}
-}
-
-# Ask to become tributary, see above for description of this subject type.
-action_ask_to_become_tributary = {
-	requires_actor_peace = yes
-	requires_recipient_peace = yes
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	AI_acceptance_base_value = -50
-	possible = {
-		custom_tooltip = {
-			fail_text = "requires_actor_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				NOT = { has_valid_civic = civic_fanatic_purifiers	}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_fanatic_purifiers"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_valid_civic = civic_fanatic_purifiers } }
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_devouring_swarm"
-			NOT = { has_valid_civic = civic_hive_devouring_swarm	}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_devouring_swarm"
-			from = { NOT = { has_valid_civic = civic_hive_devouring_swarm } }
-		}
-		custom_tooltip = {
-			fail_text = "requires_actor_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				NOT = { has_civic = civic_machine_terminator }
-				AND = {
-					has_civic = civic_machine_terminator
-					from = {
-						OR = {
-							has_country_flag = synthetic_empire
-							has_authority = auth_machine_intelligence
-						}
-					}
-				}
-			}
-		}
-		custom_tooltip = {
-			fail_text = "requires_recipient_not_machine_terminator"
-			OR = {
-				is_same_species = from
-				from = { NOT = { has_civic = civic_machine_terminator } }
-				AND = {
-					from = { has_civic = civic_machine_terminator }
-					OR = {
-						has_country_flag = synthetic_empire
-						has_authority = auth_machine_intelligence
-					}
-				}
-			}
-		}
-	}
-}
-
-# Ask to become thrall, see above for description of this subject type.
-action_ask_to_become_thrall = {
-	requires_actor_peace = yes
-	requires_recipient_peace = no
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	AI_acceptance_base_value = -50
-}
-
-# Ask to become dominion, see above for description of this subject type.
-action_ask_to_become_dominion = {
-	requires_actor_peace = yes
-	requires_recipient_peace = no
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	AI_acceptance_base_value = -50
-}
-
-# Ask to become satellite, see above for description of this subject type.
-action_ask_to_become_satellite = {
-	requires_actor_peace = yes
-	requires_recipient_peace = no
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	AI_acceptance_base_value = -50
-}
-
-# Ask to become signatory, see above for description of this subject type.
-action_ask_to_become_signatory = {
-	requires_actor_peace = yes
-	requires_recipient_peace = no
-	diplo_view_acceptance_icon = yes
-	should_notify_all_communications = yes
-	AI_acceptance_base_value = -50
 }
 
 # Release a subject of any type. Hurts relations and sets a 10 year truce.
@@ -1647,4 +1906,47 @@ action_cancel_subject_integration = {
 	auto_accepted = yes
 	requires_recipient_independence = no
 	should_notify_all_communications = yes
+}
+
+action_ask_to_leave_federation = {
+	icon = "GFX_diplomacy_status_federation"
+	auto_accepted = no
+	requires_actor_peace = yes
+	show_to_alliance_members = yes
+	should_notify_all_communications = yes
+	action_type = negative
+
+	# We do not want the AI to leave federations because it does not like its subjects
+	should_ai_propose = {
+		weight = 1
+		modifier = {
+			factor = 0
+			exists = from
+			from = { is_subject = yes }
+		}
+	}
+
+	potential = {
+		hidden_trigger = {
+			has_federation = yes
+			federation = {
+				has_federation_type = hegemony_federation
+			}
+		}
+	}
+
+	proposable = {
+		custom_tooltip = {
+			fail_text = requires_federation_leader_exists
+			federation = { federation_election_underway = no } #messes up federation election chains
+		}
+		custom_tooltip = {
+			fail_text = "requires_actor_not_already_asked"
+			NOT = { has_country_flag = asked_to_leave_hegemony }
+		}
+		custom_tooltip = {
+			fail_text = "requires_actor_not_rebelled"
+			NOT = { has_country_flag = failed_hegemony_rebellion }
+		}
+	}
 }

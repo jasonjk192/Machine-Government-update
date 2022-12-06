@@ -9,6 +9,7 @@ country_event = {
 	id = caretakers.0
 	hide_window = yes
 	fire_only_once = yes
+	is_triggered_only = yes
 	trigger = { NOT = { has_global_flag = mod_machine_government_installed } }
 	immediate = { set_global_flag = mod_machine_government_installed }
 }
