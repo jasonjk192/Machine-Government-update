@@ -1,14 +1,21 @@
+### Original File (Should not affect object keys post 3.6.*)
+
 # from = country
 # this = species
 
 citizenship_full = {
-	token = citizenship_full
+	is_full_citizenship = yes
+	# token = citizenship_full
 
 	potential = {
 		exists = from
 		OR = {
 			NOT = { from = { has_authority = auth_machine_intelligence } }
 			from = { has_civic = civic_machine_caretaker }
+		}
+		NOR = {
+			has_trait = trait_machine_unit
+			is_shackled_robot_species_rights = yes
 		}
 	}
 
@@ -74,10 +81,12 @@ citizenship_full = {
 
 citizenship_limited = {
 	token = citizenship_limited
+	new_pop_weight = 0.75
 
 	pop_modifier = {
-		pop_happiness = -0.05
-		planet_pops_consumer_goods_upkeep_mult = -0.20
+		pop_happiness = -0.1
+		pop_amenities_usage_mult = -0.25
+		pop_political_power = -0.5
 		# pop_consumer_goods_mult = -0.20
 	}
 
@@ -91,6 +100,10 @@ citizenship_limited = {
 				}
 				has_civic = civic_machine_caretaker
 			}
+		}
+		NOR = {
+			has_trait = trait_machine_unit
+			is_shackled_robot_species_rights = yes
 		}
 	}
 

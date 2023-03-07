@@ -1,0 +1,19 @@
+# from = country
+# this = species
+
+migration_control_yes = {
+	can_migrate = no
+	ai_will_do = {
+		factor = 2
+		modifier = {
+			factor = 0.1
+			from = {
+				OR = {
+					NOT = { has_authority = auth_machine_intelligence }
+					has_valid_civic = civic_machine_servitor
+				}
+				NOT = { has_valid_civic = civic_machine_caretaker }
+			}
+		}
+	}
+}

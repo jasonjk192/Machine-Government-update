@@ -9,13 +9,9 @@ on_game_start_country = {
 	}
 }
 
-empire_init_create_capital_secondary_pops = {
+empire_init_capital_planet = {
 	events = {
 		caretakers.1
-	}
-}
-empire_init_create_capital_pops = {
-	events = {
 		caretakers.2
 	}
 }

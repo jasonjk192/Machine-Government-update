@@ -1,0 +1,99 @@
+caretakers_generate_start_pops = {	
+	if = { limit = { owner = { has_valid_civic = civic_machine_caretaker } }
+		
+		last_created_species = {
+			set_citizenship_type = {
+				country = root.owner
+				type = citizenship_full
+			}
+			set_living_standard = {
+				country = root.owner
+				type = living_standard_normal
+			}
+		}
+		while = {
+			count = 4
+			create_pop = {
+				species = last_created_species
+				ethos = random
+			}
+		}
+		while = {
+			count = 4
+			random_owned_pop = { limit = { is_same_species = owner_main_species } kill_pop = yes }
+		}
+	}
+	else = {
+		while = {
+			limit = { num_pops < 24 }
+			create_pop = {
+				species = owner_main_species
+				ethos = random
+			}
+		}		
+	}
+
+	# from = { save_event_target_as = secondary_species }
+	# if = {
+	# 	limit = { owner = { has_valid_civic = civic_machine_caretaker } }
+	# 	event_target:secondary_species = {
+	# 		set_citizenship_type = {
+	# 			country = root.owner
+	# 			type = citizenship_full
+	# 		}
+	# 		set_living_standard = {
+	# 			country = root.owner
+	# 			type = living_standard_normal
+	# 		}
+	# 	}
+	# 	while = {
+	# 		count = 4
+	# 		create_pop = {
+	# 			species = event_target:secondary_species
+	# 			ethos = random
+	# 		}
+	# 	}
+	# }
+}
+
+# Replace one power plant with hydroponic farm
+caretakers_generate_start_buildings_and_deposits = {
+	if = { limit = { owner = { has_civic = civic_machine_caretaker } }
+
+		if = {
+			limit = {
+				has_building = building_energy_grid
+				has_deposit = no
+			}
+			remove_building = building_energy_grid
+			add_building = building_hydroponics_farm_1
+			set_deposit = d_fertile_lands
+			add_deposit = d_fertile_lands
+		}
+		
+		if = {
+			limit = {
+				has_building = building_energy_grid
+				has_deposit = no
+			}
+			set_deposit = d_arid_highlands
+		}
+		# random_tile = {
+		# 	limit = {
+		# 		has_building = building_power_plant_1
+		# 		has_deposit = no
+		# 	}
+		# 	remove_building = yes
+		# 	set_building = building_hydroponics_farm_1
+		# 	set_deposit = d_rich_farmland_deposit
+		# 	add_deposit = d_farmland_deposit
+		# }
+		# random_tile = {
+		# 	limit = {
+		# 		has_building = building_power_plant_1
+		# 		has_deposit = no
+		# 	}
+		# 	set_deposit = d_energy_deposit
+		# }
+	}
+}
